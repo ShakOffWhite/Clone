@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Welcome, {{ current_user.email }}</h2>
+    <a href="/logout">Logout</a>
+
+    <h3>Your Boards</h3>
+    <ul>
+        {% for board in boards %}
+        <li>
+            <a href="/board/{{ board.id }}">{{ board.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Create a new Board</h3>
+    <form method="POST" action="/create_board">
+        <input type="text" name="name" placeholder="Board Name" required>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

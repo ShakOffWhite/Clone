@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ board.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>{{ board.name }}</h2>
+    <p>Tasks:</p>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            {{ task.name }} - {{ task.status }}
+            <form method="POST" action="/update_task/{{ task.id }}">
+                <input type="text" name="status" placeholder="Update Status">
+                <button type="submit">Update</button>
+            </form>
+            <a href="/delete_task/{{ task.id }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add Task</h3>
+    <form method="POST" action="/add_task/{{ board.id }}">
+        <input type="text" name="task_name" placeholder="Task Name" required>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
